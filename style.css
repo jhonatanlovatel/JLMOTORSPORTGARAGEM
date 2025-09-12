@@ -1,0 +1,109 @@
+body {
+    background: #2e2e2e;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    background: #222;
+    border-radius: 16px;
+    padding: 20px;
+    width: 700px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  }
+  
+  h1, h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .connection {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+    font-weight: bold;
+  }
+  
+  #connectBtn {
+    background: #28a745;
+    color: white;
+  }
+  #connectBtn:hover { background: #218838; }
+  
+  #disconnectBtn {
+    background: #dc3545;
+    color: white;
+  }
+  #disconnectBtn:hover { background: #b52a37; }
+  
+  .gears {
+    margin-bottom: 20px;
+  }
+  #gearButtons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .gearBox {
+    background: #333;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .gearBox button {
+    background: #007bff;
+    color: white;
+    width: 100%;
+  }
+  .gearBox button:hover {
+    background: #0056b3;
+  }
+  
+  .serialMonitor {
+    background: #333;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  textarea {
+    width: 100%;
+    background: #000;
+    color: #0f0;
+    font-family: monospace;
+    border-radius: 6px;
+    padding: 6px;
+    margin-top: 10px;
+    resize: none;
+  }
+  
+  .sendBox {
+    background: #333;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .sendBox input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+  }
+  #sendBtn {
+    background: #007bff;
+    color: white;
+    width: 100%;
+  }
+  #sendBtn:hover { background: #0056b3; }
+  

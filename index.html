@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calibração Câmbio 8 Marchas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>⚙️ Calibração do Câmbio</h1>
+    
+    <!-- Conexão -->
+    <div class="connection">
+      <button id="connectBtn">Conectar Porta COM</button>
+      <button id="disconnectBtn" disabled>Desconectar</button>
+      <p id="status">Nenhum dispositivo conectado</p>
+    </div>
+
+    <!-- Calibração das marchas -->
+    <div class="gears">
+      <h2>Comandos de Marcha</h2>
+      <div id="gearButtons"></div>
+    </div>
+
+    <!-- Monitor serial -->
+    <div class="serialMonitor">
+      <h2>Monitor Serial</h2>
+      <label>
+        <input type="checkbox" id="autoScroll" checked>
+        Auto-scroll
+      </label>
+      <textarea id="receivedData" rows="10" readonly></textarea>
+    </div>
+
+    <!-- Envio de dados livre -->
+    <div class="sendBox">
+      <h2>Enviar Dados Manuais</h2>
+      <input id="dataToSend" type="text" placeholder="Digite um comando ex: TESTE">
+      <button id="sendBtn">Enviar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
