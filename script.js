@@ -10,7 +10,7 @@ for (let i = 1; i <= 8; i++) {
   div.className = "gearBox";
   div.innerHTML = `
     <h3>Marcha ${i}</h3>
-    <button onclick="sendGear(${i})">Enviar G${i}</button>
+    <button onclick="sendGear(${i})">Set M${i}</button>
   `;
   gearContainer.appendChild(div);
 }
