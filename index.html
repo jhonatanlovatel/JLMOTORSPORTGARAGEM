@@ -2,44 +2,79 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Calibração Câmbio 8 Marchas</title>
+  <title>Painel de Controle - Placa Arduino</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>⚙️ Calibração do Câmbio</h1>
-    
-    <!-- Conexão -->
-    <div class="connection">
-      <button id="connectBtn">Conectar Porta COM</button>
-      <button id="disconnectBtn" disabled>Desconectar</button>
-      <p id="status">Nenhum dispositivo conectado</p>
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+       <img src="1T.png" alt="Logo da sua empresa">
+      </div>
+      <h2>⚙️ Menu</h2>
+      <button class="tabBtn" data-tab="hShifter">Câmbio H</button>
+      <button class="tabBtn" data-tab="seqShifter">Câmbio Sequencial</button>
+      <button class="tabBtn" data-tab="config">Configurações</button>
+      <button class="tabBtn" data-tab="monitor">Monitor Serial</button>
     </div>
 
-    <!-- Calibração das marchas -->
-    <div class="gears">
-      <h2>Comandos de Marcha</h2>
-      <div id="gearButtons"></div>
-    </div>
+    <!-- Conteúdo -->
+    <div class="content">
+      <div class="connection">
+        <button id="connectBtn">Conectar Porta COM</button>
+        <button id="disconnectBtn" disabled>Desconectar</button>
+        <p id="status">Nenhum dispositivo conectado</p>
+      </div>
 
-    <!-- Monitor serial -->
-    <div class="serialMonitor">
-      <h2>Monitor Serial</h2>
-      <label>
-        <input type="checkbox" id="autoScroll" checked>
-        Auto-scroll
-      </label>
-      <textarea id="receivedData" rows="10" readonly></textarea>
-    </div>
+      <!-- Painel Câmbio H -->
+      <div class="tabContent" id="hShifter">
+        <h1>⚙️ Câmbio H</h1>
+        <h2>Calibração das Marchas</h2>
+        <div id="gearButtons"></div>
+        <button onclick="sendData('ENABLE_H')">Ativar H</button>
+        <button onclick="sendData('DISABLE_H')">Desativar H</button>
+        <div>
+          <label>DeadZone H: </label>
+          <input type="number" id="dzH" value="30">
+          <button onclick="setDZ('H')">Aplicar</button>
+        </div>
+      </div>
 
-    <!-- Envio de dados livre -->
-    <div class="sendBox">
-      <h2>Enviar Dados Manuais</h2>
-      <input id="dataToSend" type="text" placeholder="Digite um comando ex: TESTE">
-      <button id="sendBtn">Enviar</button>
+      <!-- Painel Câmbio Sequencial -->
+      <div class="tabContent" id="seqShifter" style="display:none;">
+        <h1>⚙️ Câmbio Sequencial</h1>
+        <button onclick="sendData('SETCSUP')">Calibrar UP</button>
+        <button onclick="sendData('SETCSDW')">Calibrar DOWN</button>
+        <button onclick="sendData('ENABLE_SEQ')">Ativar Seq</button>
+        <button onclick="sendData('DISABLE_SEQ')">Desativar Seq</button>
+        <div>
+          <label>DeadZone Seq: </label>
+          <input type="number" id="dzSeq" value="30">
+          <button onclick="setDZ('SEQ')">Aplicar</button>
+        </div>
+      </div>
+
+      <!-- Painel Configurações -->
+      <div class="tabContent" id="config" style="display:none;">
+        <h1>⚙️ Configurações Gerais</h1>
+        <button onclick="sendData('STATUS')">📡 Consultar Status</button>
+      </div>
+
+      <!-- Painel Monitor Serial -->
+      <div class="tabContent" id="monitor" style="display:none;">
+        <h1>📡 Monitor Serial</h1>
+        <label>
+          <input type="checkbox" id="autoScroll" checked> Auto-scroll
+        </label>
+        <textarea id="receivedData" rows="10" readonly></textarea>
+
+        <h2>Enviar Dados Manuais</h2>
+        <input id="dataToSend" type="text" placeholder="Digite um comando ex: STATUS">
+        <button id="sendBtn">Enviar</button>
+      </div>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>

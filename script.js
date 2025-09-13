@@ -3,14 +3,22 @@ let reader;
 let inputDone;
 let outputStream;
 
-// Criar botões G1 a G8
+// Sidebar Tabs
+document.querySelectorAll('.tabBtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tabContent').forEach(tab => tab.style.display = 'none');
+    document.getElementById(btn.dataset.tab).style.display = 'block';
+  });
+});
+
+// Criar botões de marcha (G1–G6 do seu Arduino)
 const gearContainer = document.getElementById("gearButtons");
-for (let i = 1; i <= 8; i++) {
+for (let i = 1; i <= 6; i++) {
   const div = document.createElement("div");
   div.className = "gearBox";
   div.innerHTML = `
     <h3>Marcha ${i}</h3>
-    <button onclick="sendGear(${i})">Set M${i}</button>
+    <button onclick="sendData('SETG${i}')">SETG${i}</button>
   `;
   gearContainer.appendChild(div);
 }
@@ -31,7 +39,7 @@ document.getElementById('connectBtn').addEventListener('click', async () => {
     reader = decoder.readable.getReader();
     readLoop();
 
-    // Preparar escrita
+    // Escrita
     const encoder = new TextEncoderStream();
     outputStream = encoder.writable;
     encoder.readable.pipeTo(port.writable);
@@ -64,8 +72,6 @@ async function readLoop() {
     if (value) {
       const textArea = document.getElementById('receivedData');
       textArea.value += value + "\n";
-
-      // Auto-scroll se estiver ativado
       if (document.getElementById('autoScroll').checked) {
         textArea.scrollTop = textArea.scrollHeight;
       }
@@ -73,21 +79,27 @@ async function readLoop() {
   }
 }
 
-// Enviar comando de marcha
-async function sendGear(n) {
-  await sendData("G" + n);
-}
-
-// Enviar texto manual
-document.getElementById('sendBtn').addEventListener('click', async () => {
-  const text = document.getElementById('dataToSend').value;
-  await sendData(text);
-});
-
-// Função genérica para enviar dados
+// Enviar dados genéricos
 async function sendData(text) {
   if (!outputStream) return;
   const writer = outputStream.getWriter();
   await writer.write(text + "\n");
   writer.releaseLock();
 }
+
+// Deadzones
+function setDZ(type) {
+  if (type === "H") {
+    const val = document.getElementById("dzH").value;
+    sendData("SET_DZH " + val);
+  } else if (type === "SEQ") {
+    const val = document.getElementById("dzSeq").value;
+    sendData("SET_DZSEQ " + val);
+  }
+}
+
+// Envio manual
+document.getElementById('sendBtn').addEventListener('click', async () => {
+  const text = document.getElementById('dataToSend').value;
+  await sendData(text);
+});
